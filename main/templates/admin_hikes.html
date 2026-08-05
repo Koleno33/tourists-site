@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Туризм</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/w3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <nav class="w3-sidenav w3-collapse w3-white w3-card-2 w3-animate-left" style="width: 200px;" id="sidenav">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-closenav w3-large w3-hide-large">
+            Закрыть &times;
+        </a>
+        <a href="/">Профиль</a>
+        <a href="/users">Пользователи</a>
+        <a href="/trips">Походы</a>
+        <a href="/info">Награды</a>
+        <a href="/query">SQL-запрос</a>
+    </nav>
+
+    <div class="w3-main" style="margin-left:200px;">
+        <header class="w3-container w3-white">
+            <span class="w3-opennav w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</span>
+            <section class="w3-container" style="display: inline;">
+                <img src="{% static 'img/logo.png' %}" style="float: left; max-width: 65px;" alt="logo">
+                <h2 align="center" style="float: left; margin-left: 5px;">Туристические походы</h2>
+            </section>
+        </header>
+
+        <section class="w3-container">
+            <h1 class="w3-center">Походы</h1>
+            <div class="w3-center">
+              <table class="w3-centered w3-table" style="width: 100%; max-width: none !important" border="1">
+                <tr>
+                  {% for column in columns %}
+                    <th>{{ column }}</th>
+                  {% endfor %}
+                </tr>
+                {% for hike in hikes %}
+                  <tr>
+                    <td>{{ hike.id }}</td>
+                    <td>{{ hike.name }}</td>
+                    <td>{{ hike.begin_date }}</td>
+                    <td>{{ hike.end_date }}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>
+        </section>
+        <footer class="w3-container w3-white w3-center">
+            <h5>Борщев К. Ю. </h5>
+            <p>2024. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <script>
+        function btn_open(id) {
+            document.getElementById('id01').style.display = 'none'
+            document.getElementById('id02').style.display = 'none'
+            document.getElementById('id03').style.display = 'none'
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function w3_open() {
+            document.getElementById("sidenav").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("sidenav").style.display = "none";
+        }
+    </script>
+</body>
+</html>

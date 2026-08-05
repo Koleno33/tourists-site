@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Туризм</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/w3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <nav class="w3-sidenav w3-collapse w3-white w3-card-2 w3-animate-left" style="width: 200px;" id="sidenav">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-closenav w3-large w3-hide-large">
+            Закрыть &times;
+        </a>
+        <a href="#">Главная страница</a>
+        <a href="/info">Информация</a>
+        <a href="/trips">Походы</a>
+    </nav>
+
+    <div class="w3-main" style="margin-left:200px;">
+        <header class="w3-container w3-white">
+            <span class="w3-opennav w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</span>
+            <section class="w3-container" style="display: inline;">
+                <img src="{% static 'img/logo.png' %}" style="float: left; max-width: 65px;" alt="logo">
+                <h2 align="center" style="float: left; margin-left: 5px;">Туристические походы</h2>
+            </section>
+        </header>
+
+        <section class="w3-card w3-display-container">
+            <img src="{% static 'img/mountains.jpg' %}" style="max-width:100%" alt="mountains">
+            <p class="w3-display-bottomleft w3-container w3-black w3-opacity w3-large imagetext">
+                Присоединяйтесь к походам и получайте незабываемые впечатления
+            </p>
+        </section>
+        
+        <section class="w3-container">
+            <h1 class="w3-center">Добро пожаловать</h1>
+            <div class="w3-center">
+                <img src="{% static 'img/left_tourists.jpg' %}" class="col-4 col-m-12" alt="tourists1">
+                <div class="w3-container col-4 col-m-12">
+                    <p>
+                        Приглашаем в клуб туристических походов, где мы сплоченной командой покоряем всевозможные высоты и долины. Присоединяйтесь уже сегодня
+                        и отправляйтесь в незабываемое путешествие по захватывающим дух пейзажам. Наши опытные гиды проведут вас по живописным тропам, где вы
+                        откроете для себя скрытые природой красоты и создадите неповторимые воспоминания в компании единомышленников-исследователей. Станьте
+                        частью нашего дружного коллектива - оставьте заявку, чтобы вместе с нами планировать следующее походное приключение!
+                    </p>
+                    <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-round w3-pale-green w3-large w3-border" id="applybtn">
+                        Подать заявку
+                    </button>
+                    <article id="id01" class="w3-modal">
+                        <section class="w3-modal-content w3-animate-zoom">
+                            <header class="w3-container w3-pale-green">
+                                <span onclick="document.getElementById('id01').style.display='none'" class="w3-closebtn"> &times; </span>
+                                <h4>Вступление в туристический клуб</h4>
+                            </header>
+                            <form action="input.php" method="POST" id="form">
+                                <div class="formfield"><input type="text" name="name" placeholder="Введите имя" class="w3-input w3-border" required /></div>
+                                <div class="formfield"><input type="email" name="email" placeholder="Введите E-mail" class="w3-input w3-border" required /></div>
+                                <div class="formfield"><input type="tel" name="tel" placeholder="Введите номер телефона" class="w3-input w3-border" required /></div>
+                                <div class="formfield"><input type="date" name="birth" class="w3-input w3-border" required /></div>
+                                <div class="formfield"><input type="text" name="info" placeholder="Перечислите свои навыки, если есть" class="w3-input w3-border" /></div>
+                                <div class="w3-container">
+                                    <input type="submit" class="w3-btn w3-green w3-margin" value="Отправить" />
+                                    <article id="id02" class="w3-modal">
+                                        <section class="w3-modal-content w3-animate-zoom">
+                                            <span onclick="document.getElementById('id02').style.display='none'" class="w3-closebtn">&times;</span>
+                                            <h2 class="w3-text-green">Заявка успешно отправлена!</h2>
+                                        </section>
+                                    </article>
+                                </div>
+                            </form>
+                            <footer class="w3-container w3-pale-green w3-text-green">
+                                <p>С вами обязательно свяжутся после подачи заявки</p>
+                            </footer>
+                        </section>
+                    </article>
+                    
+                </div>
+                <img src="{% static 'img/right_tourists.jpg' %}" class="col-4 col-m-12" alt="tourists2">
+            </div>
+        </section>
+
+        <section class="w3-container centerheader">
+            <h2 class="w3-left col-3 col-m-12">Преимущества походов</h2>
+            <div class="w3-container col-9 col-m-12 cards">
+                <div class="w3-card-2 col-4 col-m-4">
+                    <img src="{% static 'img/friendship.png' %}" class="col-12" alt="friends">
+                    <div class="w3-container">
+                        <h3>Новые друзья</h3>
+                        <p>Благодаря походам можно познакомиться со множеством интересных людей</p>
+                    </div>
+                </div>
+                <div class="w3-card-2 col-4 col-m-4">
+                    <img src="{% static 'img/brave.png' %}" class="col-12" alt="brave">
+                    <div class="w3-container">
+                        <h3>Смелость</h3>
+                        <p>Собраться в поход - это уже смелый шаг</p>
+                    </div>
+                </div>
+                <div class="w3-card-2 col-4 col-m-4">
+                    <img src="{% static 'img/health.jpg' %}" class="col-12" alt="health">
+                    <div class="w3-container">
+                        <h3>Здоровье</h3>
+                        <p>Чистый горный воздух и природа благотворно влияют на организм</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="w3-container w3-white w3-center">
+            <h5>Борщев К. Ю. </h5>
+            <p>2024. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <script>
+        const form = document.getElementById('form');
+
+        function getFormValue(event) {
+            event.preventDefault();
+
+            const name = form.querySelector('[name="name"]'),
+                email = form.querySelector('[name="email"]'),
+                tel = form.querySelector('[name="tel"]'),
+                info = form.querySelector('[name="info"]');
+
+            const values = {
+                name: name.value,
+                email: email.value,
+                tel: tel.value,
+                info: info.value,
+            };
+            console.log(values);
+
+            document.getElementById('id02').style.display = 'block';
+        }
+
+        if (form) {
+            form.addEventListener('submit', getFormValue);
+        }
+
+        function w3_open() {
+            document.getElementById("sidenav").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("sidenav").style.display = "none";
+        }
+    </script>
+</body>
+</html>

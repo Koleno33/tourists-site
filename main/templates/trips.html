@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Туризм</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/w3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}"
+</head>
+<body>
+    <nav class="w3-sidenav w3-collapse w3-white w3-card-2 w3-animate-left" style="width: 200px;" id="sidenav">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-closenav w3-large w3-hide-large">
+            Закрыть &times;
+        </a>
+        {% if user.is_authenticated %}
+          {% if user.employee or user.tourist %}
+          <a href="/">Профиль</a>
+            {% if not user.tourist %}
+              <a href="/tourists">Туристы</a>
+            {% endif %}
+          <a href="/staff">Персонал</a>
+          <a href="/trips">Мои походы</a>
+          <a href="/info">Награды</a>
+          {% else %}
+          <a href="/">Профиль</a>
+          <a href="/users">Пользователи</a>
+          <a href="/trips">Походы</a>
+          <a href="/info">Награды</a>
+          <a href="/query">SQL-запрос</a>
+          {% endif %}
+        {% else %}
+        <a href="/">Главная страница</a>
+        <a href="/info">Информация</a>
+        <a href="#">Походы</a>
+        {% endif %}
+    </nav>
+
+    <div class="w3-main" style="margin-left:200px;">
+        <header class="w3-container w3-white">
+            <span class="w3-opennav w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</span>
+            <section class="w3-container" style="display: inline;">
+                <img src="{% static 'img/logo.png' %}" style="float: left; max-width: 65px;" alt="logo">
+                <h2 align="center" style="float: left; margin-left: 5px;">Туристические походы</h2>
+            </section>
+        </header>
+
+        <section class="w3-container w3-center">
+          {% for message in messages %}
+          <p>{{message}}</p>
+          {% endfor %}
+        </section>
+
+        <section class="w3-container w3-center">
+          {% if not user.is_authenticated %}
+            <h1 class="w3-center">Все наши походы</h1>
+            <div class="w3-center">
+              <table class="w3-centered w3-table" style="width: 100%; max-width: none !important" border="1">
+                <tr>
+                  <th>Название</th>
+                  <th>Дата начала</th>
+                  <th>Дата окончания</th>
+                  <th>Количество туристов</th>
+                  <th>Количество медиков</th>
+                  <th>Количество инструкторов</th>
+                </tr>
+                {% for hike in hikes %}
+                  <tr>
+                    <td>{{ hike.name  }}</td>
+                    <td>{{ hike.begin_date }}</td>
+                    <td>{{ hike.end_date }}</td>
+                    <td>{{ hike.tourists.all|length }}</td>
+                    <td>{{ hike.doctors.all|length }}</td>
+                    <td>{{ hike.instructors.all|length }}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>
+          {% else %}
+            {% if user.role == 'admin' %}
+              <h1 class="w3-center">Все походы</h1>
+              <div class="w3-center">
+                <table class="w3-centered w3-table" style="width: 100%; max-width: none !important" border="1">
+                  <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Дата начала</th>
+                    <th>Дата окончания</th>
+                    <th>Количество туристов</th>
+                    <th>Количество медиков</th>
+                    <th>Количество инструкторов</th>
+                  </tr>
+                  {% for hike in hikes %}
+                    <tr>
+                      <td>{{ hike.id }}</td>
+                      <td>{{ hike.name  }}</td>
+                      <td>{{ hike.begin_date }}</td>
+                      <td>{{ hike.end_date }}</td>
+                      <td>{{ hike.tourists.all|length }}</td>
+                      <td>{{ hike.doctors.all|length }}</td>
+                      <td>{{ hike.instructors.all|length }}</td>
+                    </tr>
+                  {% endfor %}
+                </table>
+                <p><a href="/add_hike">Добавить поход</a></p>
+                <p><a href="/change_hike">Изменить поход</a></p>
+              </div>
+            {% elif user.tourist %}
+              <h1 class="w3-center">Все походы</h1>
+              <div class="w3-center">
+                <table class="w3-centered w3-table" style="width: 100%; max-width: none !important" border="1">
+                  <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Дата начала</th>
+                    <th>Дата окончания</th>
+                    <th>Количество туристов</th>
+                    <th>Количество медиков</th>
+                    <th>Количество инструкторов</th>
+                    <th>Запись в поход</th>
+                  </tr>
+                  {% for hike in hikes %}
+                    <tr>
+                      <td>{{ hike.id }}</td>
+                      <td>{{ hike.name  }}</td>
+                      <td>{{ hike.begin_date }}</td>
+                      <td>{{ hike.end_date }}</td>
+                      <td>{{ hike.tourists.all|length }}</td>
+                      <td>{{ hike.doctors.all|length }}</td>
+                      <td>{{ hike.instructors.all|length }}</td>
+                      {% if hike.is_in  %}
+                      <td>Да</td>
+                      {% else %}
+                      <td>Нет</td>
+                      {% endif %}
+                    </tr>
+                  {% endfor %}
+                </table>
+              </div>
+              <h1 class="w3-center">Ваши заявки</h1>
+              <div class="w3-center">
+                <table class="w3-centered w3-table" style="width: 100%; max-width: none !important" border="1">
+                  <tr>
+                    <th>Поход</th>
+                    <th>Заявка</th>
+                  </tr>
+                  {% for app in applications %}
+                    <tr>
+                      <td>{{ app.hike.name }}</td>
+                      <td>{{ app.get_status }}</td>
+                    </tr>
+                  {% endfor %}
+                </table>
+                <p><a href="application">Подать заявку в поход</a></p>
+              </div>
+            {% elif user.employee and user.employee.vacancy == 'instructor' %}
+              <h1 class="w3-center">Все ваши походы</h1>
+              <div class="w3-center">
+                <table class="w3-centered w3-table" style="width: 100%; max-width: none !important" border="1">
+                  <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Дата начала</th>
+                    <th>Дата окончания</th>
+                    <th>Количество туристов</th>
+                    <th>Количество медиков</th>
+                    <th>Количество инструкторов</th>
+                  </tr>
+                  {% for hike in hikes %}
+                    <tr>
+                      <td>{{ hike.id }}</td>
+                      <td>{{ hike.name  }}</td>
+                      <td>{{ hike.begin_date }}</td>
+                      <td>{{ hike.end_date }}</td>
+                      <td>{{ hike.tourists.all|length }}</td>
+                      <td>{{ hike.doctors.all|length }}</td>
+                      <td>{{ hike.instructors.all|length }}</td>
+                    </tr>
+                  {% endfor %}
+                </table>
+                <p><a href="/add_hike">Добавить поход</a></p>
+                <p><a href="/change_hike">Изменить поход</a></p>
+                <p><a href="/trips_applications">Заявки</a></p>
+              </div>
+            {% elif user.employee and user.employee.vacancy == 'doctor' %}
+              <h1 class="w3-center">Все ваши походы</h1>
+              <div class="w3-center">
+                <table class="w3-centered w3-table" style="width: 100%; max-width: none !important" border="1">
+                  <tr>
+                    <th>Название</th>
+                    <th>Дата начала</th>
+                    <th>Дата окончания</th>
+                    <th>Количество туристов</th>
+                    <th>Количество медиков</th>
+                    <th>Количество инструкторов</th>
+                  </tr>
+                  {% for hike in hikes %}
+                    <tr>
+                      <td>{{ hike.name  }}</td>
+                      <td>{{ hike.begin_date }}</td>
+                      <td>{{ hike.end_date }}</td>
+                      <td>{{ hike.tourists.all|length }}</td>
+                      <td>{{ hike.doctors.all|length }}</td>
+                      <td>{{ hike.instructors.all|length }}</td>
+                    </tr>
+                  {% endfor %}
+                </table>
+              </div>
+            {% endif %}
+          {% endif %}
+        </section>
+
+        <footer class="w3-container w3-white w3-center">
+            <h5>Борщев К. Ю. </h5>
+            <p>2024. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <script>
+        function w3_open() {
+            document.getElementById("sidenav").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("sidenav").style.display = "none";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Туризм</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/w3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <nav class="w3-sidenav w3-collapse w3-white w3-card-2 w3-animate-left" style="width: 200px;" id="sidenav">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-closenav w3-large w3-hide-large">
+            Закрыть &times;
+        </a>
+        <a href="/">Главная страница</a>
+        <a href="/info">Информация</a>
+        <a href="/trips">Походы</a>
+    </nav>
+
+    <div class="w3-main" style="margin-left:200px;">
+        <header class="w3-container w3-white">
+            <span class="w3-opennav w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</span>
+            <section class="w3-container" style="display: inline;">
+                <img src="{% static 'img/logo.png' %}" style="float: left; max-width: 65px;" alt="logo">
+                <h2 align="center" style="float: left; margin-left: 5px;">Туристические походы</h2>
+            </section>
+        </header>
+
+        <section class="w3-container">
+            <h1 class="w3-center">Вы успешно зарегистрированы!</h1>
+            <div class="w3-center">
+              Теперь Вы можете <a href="/login">войти</a> в созданный аккаунт.
+            </div>
+        </section>
+
+        <footer class="w3-container w3-white w3-center">
+            <h5>Борщев К. Ю. </h5>
+            <p>2024. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <script>
+        function w3_open() {
+            document.getElementById("sidenav").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("sidenav").style.display = "none";
+        }
+    </script>
+</body>
+</html>
