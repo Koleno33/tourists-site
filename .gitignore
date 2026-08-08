@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Django
+main/templates/admin/
+*.log
+*.pot
+*.pyc
+media/
+staticfiles/
+*.mo
+*.po
+
+# static
+/static/
+!main/static/
+
+# venv
+venv/
+.venv/
+env/
+ENV/
+
+# env
+.env
+.env.local
+.env.*.local
+
+*.Zone.Identifier
+
+# logs
+*.log
+*.pid
