@@ -82,3 +82,5 @@ docker-compose exec web python manage.py createsuperuser
 
 Wait a few seconds, then visit http://localhost:8000.
 
+## Screenshots
+You can learn more about the project’s interface in the [screenshot gallery](assets/screenshots/README.md).
